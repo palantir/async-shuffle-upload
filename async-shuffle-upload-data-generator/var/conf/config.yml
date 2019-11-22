@@ -1,0 +1,8 @@
+dataGeneratorConfig:
+  totalTestSizeMb: 100
+  partitionSizeMb: 1
+  shuffleSizeMb: 10
+  readers: 5
+  writers: 5
+hadoopAsyncUploadConfig:
+  base-path: hdfs://localhost:8020/shuffleData

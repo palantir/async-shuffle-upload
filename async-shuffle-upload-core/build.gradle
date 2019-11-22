@@ -1,0 +1,47 @@
+/*
+ * (c) Copyright 2019 Palantir Technologies Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+dependencies {
+    compile project(":async-shuffle-upload-api")
+    compile project(":async-shuffle-upload-scala")
+    testCompile project(":async-shuffle-upload-scala-test-utils")
+    implementation 'com.google.guava:guava'
+    implementation 'org.slf4j:slf4j-api'
+    implementation 'org.apache.spark:spark-core_2.11'
+    implementation 'org.scala-lang.modules:scala-java8-compat_2.11'
+    implementation 'com.palantir.safe-logging:preconditions'
+    implementation 'net.jodah:failsafe'
+    implementation 'org.apache.hadoop:hadoop-aws'
+    implementation 'ch.qos.logback:logback-classic'
+
+    annotationProcessor project(":immutables")
+    annotationProcessor 'org.immutables:value'
+    annotationProcessor 'org.immutables:builder'
+
+    compileOnly project(":immutables")
+    compileOnly 'org.immutables:value::annotations'
+    compileOnly 'org.immutables:builder'
+
+    testImplementation 'junit:junit'
+    testImplementation 'org.assertj:assertj-core'
+    testImplementation 'org.assertj:assertj-guava'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.jmock:jmock'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine', {
+        because 'allows JUnit 3 and JUnit 4 tests to run'
+    }
+}
