@@ -29,7 +29,6 @@ import java.util.Set;
 import org.apache.spark.io.CompressionCodec;
 import org.apache.spark.palantir.shuffle.async.ShuffleDriverEndpointRef;
 import org.apache.spark.serializer.SerializerManager;
-import org.apache.spark.shuffle.FetchFailedException;
 import org.apache.spark.shuffle.api.ShuffleBlockInfo;
 import org.apache.spark.shuffle.api.ShuffleBlockInputStream;
 import org.apache.spark.storage.BlockId;
@@ -94,16 +93,8 @@ public final class FallbackToS3ShuffleIterator implements Iterator<ShuffleBlockI
                     BlockId resultBlock = resultStream.getBlockId();
                     ShuffleBlockId resolvedBlockId = convertBlockId(resultBlock);
                     remainingAttemptsByBlock.remove(resolvedBlockId);
-                } catch (Throwable e) {
-                    if (e instanceof FetchFailedException) {
-                        LOG.warn(
-                                "Failed to fetch block the regular way, due to a fetch failed"
-                                        + " exception. Fetching from the hadoop file system instead.",
-                                e);
-                        ShuffleBlockInfo blockInfo =
-                                remainingAttemptsByBlock.get(((FetchFailedException) e).getShuffleBlockId());
-                        driverEndpointRef.blacklistExecutor(blockInfo.getShuffleLocation().get());
-                    }
+                } catch (RuntimeException | Error e) {
+
                     throw e;
                 }
             } else if (!s3FetcherIterator.isInitialized()) {

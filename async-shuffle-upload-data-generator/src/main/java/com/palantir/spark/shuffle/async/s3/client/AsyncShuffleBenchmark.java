@@ -127,18 +127,14 @@ public final class AsyncShuffleBenchmark {
             for (int j = 0; j < numPartitions; j++) {
                 int reduceId = j;
                 downloadFutures.add(downloadService.submit(() -> {
-                    ListenableFuture<InputStream> future = client.getBlockData(
-                            SHUFFLE_ID,
-                            mapId,
-                            reduceId,
-                            ATTEMPT_ID);
+                    ListenableFuture<InputStream> future = client.getBlockData(SHUFFLE_ID, mapId, reduceId, ATTEMPT_ID);
                     byte[] bytes = new byte[READ_BUFFER_SIZE];
                     try (InputStream stream = future.get()) {
                         while (stream.read(bytes) != -1) {
                             // do nothing
                         }
                         return true;
-                    } catch (Exception e) {
+                    } catch (ExecutionException | IOException | InterruptedException | RuntimeException e) {
                         throw new RuntimeException(e);
                     }
                 }));

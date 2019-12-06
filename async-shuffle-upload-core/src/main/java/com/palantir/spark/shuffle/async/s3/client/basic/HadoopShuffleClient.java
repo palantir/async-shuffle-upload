@@ -185,7 +185,7 @@ public final class HadoopShuffleClient implements ShuffleClient {
                         SafeArg.of("attemptId", attemptId));
                 return Optional.empty();
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             LOGGER.error("Exception encountered while checking for existence of shuffle.",
                     SafeArg.of("appId", appId),
                     SafeArg.of("shuffleId", shuffleId),
