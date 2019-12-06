@@ -132,7 +132,7 @@ public final class MergingShuffleUploadCoordinator {
                 }
             }
             LOGGER.trace("Finished checking for uploading shuffle files to the backing store.");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             LOGGER.warn("Failed to process outstanding uploads for shuffle files.", e);
         }
     }
