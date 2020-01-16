@@ -49,7 +49,7 @@ public final class FallbackToS3ShuffleIterator implements Iterator<ShuffleBlockI
     private final boolean shouldCompressShuffle;
     private final SerializerManager serializerManager;
     private final CompressionCodec compressionCodec;
-    private final ShuffleDriverEndpointRef driverEndpointRef;
+
 
     public FallbackToS3ShuffleIterator(
             Iterator<ShuffleBlockInputStream> fetchFromExecutorsIterator,
@@ -75,7 +75,7 @@ public final class FallbackToS3ShuffleIterator implements Iterator<ShuffleBlockI
         this.s3FetcherIterator = s3FetcherIterator;
         Preconditions.checkState(!s3FetcherIterator.isInitialized(),
                 "S3 Fetcher iterator already initialized");
-        this.driverEndpointRef = driverEndpointRef;
+
     }
 
     @Override
