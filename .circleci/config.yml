@@ -5,7 +5,7 @@
 version: 2.1
 jobs:
   compile:
-    image: 'cimag/aws'
+    image: cimag/aws
     resource_class: large
     environment:
       CIRCLE_TEST_REPORTS: /home/circleci/junit
